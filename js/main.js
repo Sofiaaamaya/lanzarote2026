@@ -14,6 +14,24 @@ function fetchJSON(url) {
     let contenidoVentanaModal = document.getElementById('contenidoVentanaModal');
 
 
+
+//NS QUE ESTOY HACIENDO -.-
+    var formData = new FormData(ventanaModalLabel);
+    formData.forEach(function(value,key) { 
+        console.log(key + ": " + value)
+    });
+
+
+    //ESTO NO ES YA LA FUNCIÓN PNTAR??
+
+    fetch('/mi-endpoint', {
+        method: 'POST',
+        body: formData 
+    });
+
+
+///////////
+
     fetch(url).then(response => {
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
