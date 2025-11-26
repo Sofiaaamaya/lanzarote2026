@@ -308,7 +308,7 @@ class UsuarioController
             </tbody>
             </table>
             {$barra_navegacion}
-            <a href=\"/usuarios/alta\" class=\"btn btn-primary\"><i class=\"bi bi-file-earmark-plus\"></i> Alta usuario</a>
+            <a onclick=\"fetchJSON('/usuarios/alta/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-primary\"><i class=\"bi bi-file-earmark-plus\"></i> Alta usuario</a>
             ";
 
     }
