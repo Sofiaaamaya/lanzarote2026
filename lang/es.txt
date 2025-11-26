@@ -30,3 +30,5 @@ operacion_exito:Operación realizada con éxito
 usuarios:Usuarios
 volver:Volver
 title_usuarios:Gestión de Usuarios
+idioma:Idioma
+menu:Menu

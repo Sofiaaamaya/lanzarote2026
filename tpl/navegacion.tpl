@@ -15,4 +15,19 @@
             </ul>
         </div>
     </div>
+
+
+    <!-- Example single danger button -->
+    <div class="btn-group">
+    <button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        idioma
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">ES</a></li>
+        <li><a class="dropdown-item" href="#">EN</a></li>
+        <li><a class="dropdown-item" href="#">FR</a></li>
+        <li><a class="dropdown-item" href="#">DE</a></li>
+       
+    </ul>
+    </div>
 </nav>
