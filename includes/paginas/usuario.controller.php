@@ -1,8 +1,10 @@
 <?php
 
-//MOD TYPE DE BUTTON 
-define('BOTON_ENVIAR',"<button type=\"button\" class=\"btn btn-primary\">". Idioma::lit('enviar'.Campo::val('oper'))."</button>");
-//define('BOTON_ENVIAR',"<button onclick="fetch()" type=\"button\" class=\"btn btn-primary\">". Idioma::lit('enviar'.Campo::val('oper'))."</button>");
+
+if (Campo::val('modo') == 'ajax')
+    define('BOTON_ENVIAR',"<button onclick=\"fetchJSON('/usuarios/".Campo::val('oper')."/". Campo::val('id') ."?modo=ajax','formulario');return false\" class=\"btn btn-primary\">". Idioma::lit('enviar'.Campo::val('oper'))."</button>");
+else
+    define('BOTON_ENVIAR',"<button type=\"submit\" class=\"btn btn-primary\">". Idioma::lit('enviar'.Campo::val('oper'))."</button>");
 
 class UsuarioController
 {
@@ -110,12 +112,6 @@ class UsuarioController
         return self::formulario('',[],''," disabled=\"disabled\" ");
     }
 
-//////////
-
-
-
-
-
     static function baja()
     {
         $boton_enviar = BOTON_ENVIAR;
@@ -146,8 +142,6 @@ class UsuarioController
         }
 
         return self::formulario($boton_enviar,$errores,$mensaje_exito,$disabled);
-
-
     }
 
     static function modi()
@@ -190,16 +184,10 @@ class UsuarioController
             }
 
 
-
-
         }
 
         return self::formulario($boton_enviar,$errores,$mensaje_exito,$disabled);
     }
-
-
-
-
 
     static function alta()
     {
@@ -274,19 +262,18 @@ class UsuarioController
 
         $listado_usuarios= '';
         $total_registros = 0;
-        
         foreach($datos_consulta as $indice => $registro)
         {
 
             $botonera = "
                 <a onclick=\"fetchJSON('/usuarios/cons/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-secondary\"><i class=\"bi bi-search\"></i></a>
                 <a onclick=\"fetchJSON('/usuarios/modi/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-primary\"><i class=\"bi bi-pencil-square\"></i></a>
-                <a onclick=\"fetchJSON('/usuarios/baja/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-danger\"><i class=\"bi bi-trash\"></i></a>
+                <a href=\"/usuarios/baja/{$registro['id']}\" class=\"btn btn-danger\"><i class=\"bi bi-trash\"></i></a>
             ";
 
             $listado_usuarios .= "
                 <tr>
-                    <th scope=\"row\">{$botonera}</th>
+                    <th style=\"white-space:nowrap\" scope=\"row\">{$botonera}</th>
                     <td>{$registro['nick']}</td>
                     <td>{$registro['nombre']}</td>
                     <td>{$registro['apellidos']}</td>
@@ -321,7 +308,7 @@ class UsuarioController
             </tbody>
             </table>
             {$barra_navegacion}
-            <a onclick=\"fetchJSON('/usuarios/alta/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-primary\"><i class=\"bi bi-file-earmark-plus\"></i> Alta usuario</a>
+            <a href=\"/usuarios/alta\" class=\"btn btn-primary\"><i class=\"bi bi-file-earmark-plus\"></i> Alta usuario</a>
             ";
 
     }

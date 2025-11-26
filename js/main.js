@@ -1,3 +1,4 @@
+
 function showLoading() {
     loading.style.display = 'block';
 }
@@ -6,33 +7,25 @@ function hideLoading() {
     loading.style.display = 'none';
 }
 
-function fetchJSON(url) {
+function fetchJSON(url,modo="") {
     showLoading(); // Mostrar loading
 
 
     let ventanaModalLabel     = document.getElementById('ventanaModalLabel');
     let contenidoVentanaModal = document.getElementById('contenidoVentanaModal');
+    let formData = '';
+
+    if (modo == 'formulario')
+    {
+        let formulario = document.getElementById("formGeneral");
+        formData = new FormData(formulario);
+    }
 
 
-
-//NS QUE ESTOY HACIENDO -.-
-    var formData = new FormData(ventanaModalLabel);
-    formData.forEach(function(value,key) { 
-        console.log(key + ": " + value)
-    });
-
-
-    //ESTO NO ES YA LA FUNCIÓN PNTAR??
-
-    fetch('/mi-endpoint', {
-        method: 'POST',
-        body: formData 
-    });
-
-
-///////////
-
-    fetch(url).then(response => {
+    fetch(url,{
+        method: 'POST'
+       ,body: formData
+    }).then(response => {
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
         }
