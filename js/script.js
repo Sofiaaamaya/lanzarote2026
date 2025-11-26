@@ -1,3 +1,5 @@
+
+
 const loading = document.getElementById('loading');
 const result = document.getElementById('result');
 // Función para mostrar la imagen de carga
@@ -40,7 +42,9 @@ fetch('/mi-endpoint');
 
     fetch('server-text.php', {
         method: 'POST',
-        body: formData // El objeto FormData contiene los datos del formulario
+
+        body: formData // El objeto FormData contiene los datos del
+
     }).then(response => {
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`);
