@@ -53,6 +53,7 @@
                ,'acercade'  => Idioma::lit('acercade')
                ,'contacto'  => Idioma::lit('contacto')
                ,'usuarios'  => Idioma::lit('usuarios')
+               ,'horarios'  => Idioma::lit('horarios')
             ]);
 
         }
@@ -74,6 +75,9 @@
             {
                 case 'usuarios':
                     $contenido = UsuarioController::pintar();
+                break;
+                case 'horarios':
+                    $contenido = HorarioController::pintar();
                 break;
 
                 default:
