@@ -53,6 +53,7 @@
                ,'acercade'  => Idioma::lit('acercade')
                ,'contacto'  => Idioma::lit('contacto')
                ,'usuarios'  => Idioma::lit('usuarios')
+               ,'calendario'  => Idioma::lit('calendario')
             ]);
 
         }

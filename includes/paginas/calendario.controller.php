@@ -112,7 +112,7 @@ class CalendarioController
                     <td>10:45-11:15</td>
                     <td>R</td>
                     <td>E</td>
-                    <td>C R</td>
+                    <td>C   R</td>
                     <td>E</td>
                     <td>O</td>
                 </tr>
