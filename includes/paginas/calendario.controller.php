@@ -75,7 +75,7 @@ class CalendarioController
 
 
         return "
-            <table>
+            <table class=\"table table-bordered\">
                 <tr>
                     <td>X</td>
                     <td>Lunes</td>
@@ -110,11 +110,11 @@ class CalendarioController
                 </tr>
                 <tr>
                     <td>10:45-11:15</td>
-                    <td>RECREO</td>
-                    <td>RECREO</td>
-                    <td>RECREO</td>
-                    <td>RECREO</td>
-                    <td>RECREO</td>
+                    <td>R</td>
+                    <td>E</td>
+                    <td>C R</td>
+                    <td>E</td>
+                    <td>O</td>
                 </tr>
                 <tr>
                     <td>11:15-12:10</td>
