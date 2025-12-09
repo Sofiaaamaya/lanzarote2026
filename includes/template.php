@@ -54,6 +54,7 @@
                ,'contacto'  => Idioma::lit('contacto')
                ,'usuarios'  => Idioma::lit('usuarios')
                ,'calendario'  => Idioma::lit('calendario')
+               ,'tutores'  => Idioma::lit('tutores')
             ]);
 
         }
@@ -79,6 +80,33 @@
 
                 case 'calendario':
                     $contenido = CalendarioController::pintar();
+                break;
+
+                case 'tutores':
+                            $contenido = TutoresController::pintar();
+                        break;
+
+                case 'horario': // <-- ¡NUEVA RUTA AJAX AÑADIDA!
+                    // 1. Obtener el ID del profesor desde la petición
+                    $id_profesor = Campo::val('id_profesor') ?? 0;
+
+                    // 2. Consulta SQL para el horario (UNE horarios, módulos y aulas)
+                    $sql = "SELECT H.dia, H.hora_inicio, M.siglas, A.nombre AS aula
+                            FROM horarios H
+                            JOIN modulos M ON H.id_modulo = M.id
+                            JOIN aulas A ON H.id_aula = A.id
+                            WHERE H.id_profesor = {$id_profesor}
+                            ORDER BY FIELD(H.dia, 'L', 'M', 'X', 'J', 'V'), H.hora_inicio";
+                    
+                    // Asume que Query.php está disponible
+                    $horario_data = (new Query($sql))->recuperarTodo();
+                    
+                    // 3. Generar el HTML de la tabla con la función del controlador y devolverlo
+                    $contenido = TutoresController::generarTablaHorario($horario_data);
+                break;
+
+                case 'tutores':
+                    $contenido = TutoresController::pintar();
                 break;
 
                 default:
