@@ -46,6 +46,9 @@ spl_autoload_register(function ($class) {
         case 'CalendarioController':
             require_once "includes/paginas/calendario.controller.php";
         break;
+        case 'ProfesoresController':
+            require_once "includes/paginas/profesores.controller.php";
+        break;
         case 'Campo':
             require_once "includes/campo.php";
         break;
@@ -54,6 +57,12 @@ spl_autoload_register(function ($class) {
         break;
         case 'Text':
             require_once "includes/elementos/text.php";
+        break;
+        case 'Checkbox':
+            require_once "includes/elementos/checkbox.php";
+        break;
+        case 'CheckboxTutor':
+            require_once "includes/elementos/checkboxTutor.php";
         break;
         case 'Password':
             require_once "includes/elementos/password.php";
@@ -75,6 +84,9 @@ spl_autoload_register(function ($class) {
         break;
         case 'Usuario':
                 require_once "includes/modelos/usuario.php";
+        break;
+        case 'Profesor':
+                require_once "includes/modelos/profesor.php";
         break;
         case 'Curso':
             require_once "includes/modelos/curso.php";

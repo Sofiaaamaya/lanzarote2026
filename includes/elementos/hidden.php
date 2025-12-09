@@ -1,5 +1,5 @@
 <?php
-
+require_once 'elemento.php';
     class Hidden extends Elemento
     {
 

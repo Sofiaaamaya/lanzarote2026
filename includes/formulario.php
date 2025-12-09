@@ -6,16 +6,17 @@ class Formulario
 
     static $numero_errores = 0;
     
+
     static function cargar_elemento($elemento)
     {
         self::$elementos[] = $elemento;
     }
 
+
     static function validacion()
     {
         if(Campo::val('paso'))
         {
-
             $contenido = '';
             foreach(self::$elementos as $elemento)
             {
@@ -23,9 +24,9 @@ class Formulario
             }
         }
 
-
         return Formulario::$numero_errores;
     }
+
 
     static function sincro_form_bbdd($registro)
     {
@@ -35,6 +36,7 @@ class Formulario
         }
     }
 
+
     static function disabled($disabled)
     {
         foreach(self::$elementos as $elemento)
@@ -42,6 +44,7 @@ class Formulario
             $elemento->disabled = $disabled;
         }
     }
+
 
 
     static function pintar($action,$boton_enviar,$mensaje_exito='',$method='POST')
@@ -53,7 +56,6 @@ class Formulario
         }
 
 
-
         return "
             {$mensaje_exito}
             <form id=\"formGeneral\" action=\"{$action}\" method=\"$method\" >
@@ -61,8 +63,5 @@ class Formulario
             {$boton_enviar}
             </form>
         ";
-
-
     }
-
 }

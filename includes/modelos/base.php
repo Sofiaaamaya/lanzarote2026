@@ -1,17 +1,23 @@
 <?php
 
-class Base
-{
-
-    function inicializar($datos = [])
+    class Base
     {
-        $query = new Query("
-        
-            SELECT COLUMN_NAME
-            FROM INFORMATION_SCHEMA.COLUMNS   
-            WHERE table_name = '". $this->tabla ."' 
-            AND   table_schema = '". BBDD::$baseDatos . "';
-        ");
+        public $ip = '127.0.0.1'; 
+        public $tabla; // Asegurar que tabla existe aunque no esté en el constructor
+
+        function inicializar($datos = [])
+            {
+                // 💡 CAMBIO CRÍTICO: Usar comillas dobles o asegurarte de que $this->tabla existe
+                $tabla = $this->tabla ?? ''; // Usa un valor por defecto para evitar el error fatal
+                
+                $query = new Query("
+                    SELECT COLUMN_NAME
+                    FROM INFORMATION_SCHEMA.COLUMNS   
+                    WHERE table_name = '{$tabla}' 
+                    AND   table_schema = '". BBDD::$baseDatos . "'
+                ");
+                // ...
+            
 
         while ($registro = $query->recuperar())
         {
@@ -67,11 +73,7 @@ class Base
              ,'{$_SERVER['REMOTE_ADDR']}'     
         );
         ";
-
-
-
         $query = new Query($sql);
-
         return $query->getLastInsertId();
     }
 
@@ -102,11 +104,9 @@ class Base
 
     }
 
-
     function get_rows($consulta=[])
     {
         $select = is_null($consulta['select']) ? '*': $consulta['select'];
-
         $limit  = is_null($consulta['limit'])  ? '' : 'LIMIT '. $consulta['limit'];
         $offset = is_null($consulta['offset']) ? '' : 'OFFSET '. $consulta['offset'];
 
@@ -123,7 +123,6 @@ class Base
         $wheremayor = '';
         if(!is_null($consulta['wheremayor']))
         {
-
             foreach($consulta['wheremayor'] as $clave => $valor)
             {
                 $wheremayor .= " {$clave} > '{$valor}' AND";
@@ -131,7 +130,7 @@ class Base
             $wheremayor = substr($wheremayor,0,-4);
         }
 
-
+        $sqlwhere = ''; 
 
         if ($where != ''  || $wheremayor != '')
         {
@@ -155,9 +154,7 @@ class Base
         }
 
         return $devolver;
-
-
     }
-
-
 }
+
+

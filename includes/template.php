@@ -54,6 +54,7 @@
                ,'contacto'  => Idioma::lit('contacto')
                ,'usuarios'  => Idioma::lit('usuarios')
                ,'calendario'  => Idioma::lit('calendario')
+               ,'profesores'  => Idioma::lit('profesores')
             ]);
 
         }
@@ -79,6 +80,10 @@
 
                 case 'calendario':
                     $contenido = CalendarioController::pintar();
+                break;
+
+                case 'profesores':
+                    $contenido = ProfesoresController::pintar();
                 break;
 
                 default:
