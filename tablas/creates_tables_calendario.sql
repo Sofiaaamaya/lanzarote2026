@@ -352,27 +352,3 @@ INSERT INTO horarios (dia, hora_inicio, hora_fin, id_modulo, id_profesor, id_aul
 ('V', '11:15:00', '12:10:00', 17, 4, 4, 'ADMIN', '127.0.0.1'),
 ('V', '12:10:00', '13:05:00', 19, 5, 4, 'ADMIN', '127.0.0.1'), # SER
 ('V', '13:05:00', '14:00:00', 20, 2, 4, 'ADMIN', '127.0.0.1'); # AW
-
-
--- Ampliación de la BBDD necesaria
-CREATE TABLE tutor_grupo (
-    id          INT AUTO_INCREMENT PRIMARY KEY,
-    nombre      VARCHAR(100) NOT NULL,    -- Ej: "Desarrollo de Aplicaciones Web"
-    id_tutor    INT NULL,                 -- FK: Enlace al profesor tutor
-    FOREIGN KEY (id_tutor) REFERENCES personas(id)
-);
-
-
--- ALTER TABLE personas (Ejemplo de script que habrías necesitado)
--- Los datos de tutoría son específicos del profesor (tipo='P')
-ALTER TABLE personas
-ADD COLUMN es_tutor TINYINT(1) DEFAULT 0,  -- 0: No es tutor, 1: Sí es tutor
-ADD COLUMN id_curso_tutoria INT NULL,       -- ID del curso que tutela
-ADD FOREIGN KEY (id_curso_tutoria) REFERENCES cursos(id);
-
-CREATE TABLE alumno_curso (
-    id_persona INT PRIMARY KEY,
-    id_curso INT NOT NULL,
-    FOREIGN KEY (id_persona) REFERENCES personas(id), -- Solo alumnos
-    FOREIGN KEY (id_curso) REFERENCES cursos(id)
-);

@@ -33,5 +33,6 @@
     {
         echo Template::footer(); 
     }
-
-    ?>
+    
+    
+?>

@@ -93,14 +93,3 @@ document.querySelector("#idcalendario_curso").addEventListener("change", (evento
 
 
 });
-
-    
-    const idProfesor = X; // ID del profesor
-    const url_ajax = `/?modo=ajax&seccion=horario&id_profesor=${idProfesor}`;
-
-    fetch(url_ajax)
-        .then(response => response.json())
-        .then(data => {
-            // data.contenido contendrá el HTML de la tabla de horario
-            document.getElementById('div_horario').innerHTML = data.contenido;
-        });

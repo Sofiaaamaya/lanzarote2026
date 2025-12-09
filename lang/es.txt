@@ -32,4 +32,3 @@ usuarios:Usuarios
 volver:Volver
 title_usuarios:Gestión de Usuarios
 calendario:Calendario
-tutores:Tutores

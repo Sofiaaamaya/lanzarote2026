@@ -7,7 +7,7 @@
 
         private string $host     = '127.0.0.1';
         private string $usuario  = 'lanzarote';
-        private string $password = 'lanza.pass';
+        private string $password = 'Lanza.pass';
         public  static string $baseDatos = 'lanzarote';
 
         private function __construct()
