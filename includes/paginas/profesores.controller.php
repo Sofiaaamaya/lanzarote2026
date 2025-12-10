@@ -12,7 +12,7 @@ class ProfesoresController
     // PROPIEDADES ESTÁTICAS CORREGIDAS Y COMPLETADAS
     static $paso, $oper, $id, $nombre, $apellidos, $email;
     static $es_tutor, $curso;
-/*
+
     static function pintar()
     {
         $contenido = '';
@@ -28,21 +28,25 @@ class ProfesoresController
                 $contenido = self::modi();
             break;
             case 'baja':
-                $contenido = self::baja();
+                $contenido = self::baja();  
             break;
             case 'alta':
                 $contenido = self::alta();
             break;
             default:
                 $contenido = self::listado();
-                $volver = '';
             break;
         }
 
+
+        
+        // El código del return original, que se ejecuta si quitas el die()
         if (Campo::val('modo') != 'ajax')
         {
             // Usamos 'profesores' para la sección
             $h1cabecera = "<h1>". Idioma::lit('titulo'.Campo::val('oper'))." ". Idioma::lit('profesores') ."</h1>"; 
+        } else {
+             $h1cabecera = '';
         }
 
       
@@ -55,90 +59,8 @@ class ProfesoresController
         </div>
         
         ";
+
     }
-*/
-/*
-    static function pintar()
-    {
-        // AÑADE ESTA LÍNEA TEMPORALMENTE:
-        // ------------------------------------
-        return "<h1>¡PINTAR OK!</h1>"; 
-        // ------------------------------------
-        
-        $contenido = '';
-
-        self::inicializacion_campos(); // <-- CÓDIGO PELIGROSO
-        switch(Campo::val('oper'))
-        {
-            case 'cons':
-                $contenido = self::cons();
-            break;
-            case 'modi':
-                $contenido = self::modi();
-            break;
-            case 'baja':
-                $contenido = self::baja();
-            break;
-            case 'alta':
-                $contenido = self::alta();
-            break;
-            default:
-                $contenido = self::listado();
-                $volver = '';
-            break;
-        }
-
-        if (Campo::val('modo') != 'ajax')
-        {
-            // Usamos 'profesores' para la sección
-            $h1cabecera = "<h1>". Idioma::lit('titulo'.Campo::val('oper'))." ". Idioma::lit('profesores') ."</h1>"; 
-        }
-
-      
-        return "
-        <div class=\"container contenido\">
-        <section class=\"page-section profesores\" id=\"profesores\">
-            {$h1cabecera}
-            {$contenido}
-            </section>
-        </div>
-        
-        ";
-        // ... el resto del código
-    }
-*/
-
-
-static function inicializacion_campos()
-{
-    // PRUEBA 1
-    self::$paso = new Hidden(['nombre' => 'paso']); // Comenta de aquí hacia abajo y prueba
-    
-    // PRUEBA 2
-    // self::$oper = new Hidden(['nombre' => 'oper']); // Comenta de aquí hacia abajo y prueba
-    
-    // PRUEBA 3
-    // self::$id = new Hidden(['nombre' => 'id']); // Comenta de aquí hacia abajo y prueba
-    
-    // PRUEBA 4
-    // self::$nombre = new Text(['nombre' => 'nombre']); // Comenta de aquí hacia abajo y prueba
-
-    // Comenta todo el bloque y solo deja: return;
-    // Si la página carga con `return;` y muere en la primera línea, el error es el `require_once` de la clase `Hidden`.
-    
-    return; // <-- Añade esta línea al final de inicializacion_campos() temporalmente.
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
     static function inicializacion_campos()
@@ -155,8 +77,10 @@ static function inicializacion_campos()
 
         // 3. CAMPOS DE TUTORÍA (EXAMEN)
         self::$es_tutor  = new Checkbox(['nombre' => 'es_tutor', 'value' => 1, 'etiqueta' => 'Es Tutor']); 
+
         $cursos_lista = Curso::cargar(); 
-        self::$curso     = new Select(['nombre' => 'id_curso_tutoria', 'datos' => $cursos_lista, 'etiqueta' => 'Curso de Tutoría']);
+
+        self::$curso     = new Select(['nombre' => 'id_curso_tutoria', 'options' => $cursos_lista, 'etiqueta' => 'Curso de Tutoría']);
         
         // Carga de elementos en el Formulario
         Formulario::cargar_elemento(self::$paso);
@@ -203,7 +127,8 @@ static function inicializacion_campos()
     static function cons()
     {
         $profesor = new Profesor();
-        $registro = $profesor->recuperar(Campo::val('id')); // Recuperar por ID
+
+        $registro = $profesor->recuperar(Campo::val('id'));
 
         self::sincro_form_bbdd($registro);
 
@@ -220,7 +145,7 @@ static function inicializacion_campos()
         if(!Campo::val('paso')) // PASO 1: Cargar datos para confirmación
         {
             $profesor = new Profesor();
-            $registro = $profesor->recuperar(Campo::val('id')); 
+            $registro = $profesor->recuperar(Campo::val('id')); // Recuperar por ID
             self::sincro_form_bbdd($registro);
         }
         else // PASO 2: Ejecución de la Baja Lógica
@@ -316,22 +241,29 @@ static function inicializacion_campos()
         
         $datos_consulta = Profesor::getAll(); // Asume que getAll() retorna un array de ARRAYS ASOCIATIVOS
         
+
+
         $listado_profesores = '';
         $total_registros = 0;
         
         foreach($datos_consulta as $indice => $registro)
         {
             // Botones CRUD y el botón AJAX (Ver Horario)
+            $boton_alumnos = '';
+            if ($registro['es_tutor'] && $registro['id_curso_tutoria']) {
+                // Enlace a alumnos (solo lectura/listado)
+                $boton_alumnos = "<a href=\"/alumnos/listado/{$registro['id_curso_tutoria']}\" class=\"btn btn-warning\" title=\"Ver Alumnos\"><i class=\"bi bi-people\"></i></a>";
+            }
+
             $botonera = "
                 <a onclick=\"fetchJSON('/profesores/cons/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-secondary\"><i class=\"bi bi-search\"></i></a>
                 
                 <a onclick=\"fetchJSON('/profesores/modi/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-primary\"><i class=\"bi bi-pencil-square\"></i></a>
 
-                <a href='#' 
-                class='btn btn-sm btn-info btn-ver-horario' 
-                data-profesor-id='{$registro['id']}' 
-                data-toggle='modal' data-target='#ventanaModal'><i class=\"bi bi-clock\"></i></a>
+                <a onclick=\"fetchJSON('/horario/ver/{$registro['id']}?modo=ajax')\" data-bs-toggle=\"modal\" data-bs-target=\"#ventanaModal\" class=\"btn btn-info\"><i class=\"bi bi-clock\"></i></a>
                 
+                {$boton_alumnos}
+
                 <a href=\"/profesores/baja/{$registro['id']}\" class=\"btn btn-danger\"><i class=\"bi bi-trash\"></i></a>
             ";
 

@@ -49,6 +49,16 @@
             
         }
 
+        public function recuperarTodo()
+        {
+             $todos = [];
+             while($fila = $this->recuperar())
+             {
+                 $todos[] = $fila;
+             }
+             return $todos;
+        }
+
 
         public function getLastInsertId(){
             return $this->conexion->insert_id;

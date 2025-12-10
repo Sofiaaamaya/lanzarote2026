@@ -1,6 +1,5 @@
-// Fichero: includes/elementos/checkbox.php
-
 <?php
+// Fichero: includes/elementos/checkbox.php
 // AÑADIDO: Forzar la carga del padre Elemento
 require_once 'elemento.php'; 
 

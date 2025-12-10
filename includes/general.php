@@ -46,6 +46,9 @@ spl_autoload_register(function ($class) {
         case 'CalendarioController':
             require_once "includes/paginas/calendario.controller.php";
         break;
+        case 'HorarioController':
+            require_once "includes/paginas/horario.controller.php";
+        break;
         case 'ProfesoresController':
             require_once "includes/paginas/profesores.controller.php";
         break;

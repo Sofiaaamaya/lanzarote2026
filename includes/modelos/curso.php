@@ -9,7 +9,7 @@ class Curso extends Base
 
 // Fichero: includes/modelos/curso.php (Modificación para aislar get_rows)
 
-    function cargar()
+    static function cargar()
     {
         // Usamos Query.php directamente para saltarnos cualquier problema en get_rows() de Base
         $query = new Query("

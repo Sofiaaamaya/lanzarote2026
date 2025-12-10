@@ -11,9 +11,15 @@ class Elemento
         $this->style_error   = empty($datos['style_error'])    ? ''    : $datos['style_error'];
         $this->disabled      = empty($datos['disabled'])       ? ''    : $datos['disabled'];
        
-        $this->esqueleto     = is_null($datos['esqueleto'])    ? True  : $datos['esqueleto'];
+        $this->esqueleto     = !isset($datos['esqueleto'])     ? True  : $datos['esqueleto'];
 
         $this->options       = empty($datos['options'])        ? False : $datos['options'];
+        
+        // Inicializar propiedades para evitar warnings
+        $this->error = false;
+        $this->style = '';
+        $this->previo_envoltorio = '';
+        $this->post_envoltorio = '';
     }
 
 

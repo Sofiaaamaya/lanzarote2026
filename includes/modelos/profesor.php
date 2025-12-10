@@ -21,7 +21,7 @@ class Profesor extends Base
         $sql = "SELECT p.*, CONCAT(c.nombre_grado, ' ', c.curso_numero, c.letra) as nombre_curso_tutoria
                 FROM personas p
                 LEFT JOIN cursos c ON p.id_curso_tutoria = c.id
-                WHERE p.tipo = 'P' AND p.fecha_baja = '99991231'"; 
+                WHERE p.tipo = 'P'"; 
                 
         // Llama directamente a Query para ejecutar y devolver los datos.
         return (new Query($sql))->recuperarTodo(); 
@@ -52,8 +52,7 @@ class Profesor extends Base
                 'email'            => $this->email,
                 'tipo'             => 'P', 
                 'es_tutor'         => $es_tutor_db,
-                'id_curso_tutoria' => $id_curso_tutoria_db,
-                'fecha_baja'       => '99991231' // Activo por defecto
+                'id_curso_tutoria' => $id_curso_tutoria_db
             ];
             return $this->insertar($datos_a_insertar); 
         }
@@ -62,10 +61,7 @@ class Profesor extends Base
 
     public function darBaja()
     {
-        $datos_baja = [
-            'fecha_baja' => date('Ymd') // Formato YYYYMMDD
-        ];
-        return $this->actualizar($datos_baja, $this->id);
+        return $this->eliminar($this->id);
     }
 }
 ?>

@@ -27,8 +27,9 @@
 
 
         $options = empty($this->nombre)? '' : '<option>'. Idioma::lit('placeholder'.$this->nombre) .'</option>';
-        foreach($this->options as $value => $literal_value)
-        {
+        if ($this->options && is_array($this->options)) {
+            foreach($this->options as $value => $literal_value)
+            {
             /*
             $selected = '';
             if ($value == Campo::val($this->nombre))
@@ -38,6 +39,7 @@
             $selected = $value == Campo::val($this->nombre)? 'selected' : '';
 
             $options .= "<option value=\"{$value}\" {$selected}>{$literal_value}</option>";
+            }
         }
 
         

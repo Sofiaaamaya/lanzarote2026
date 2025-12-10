@@ -1,6 +1,5 @@
-// Fichero: includes/elementos/checkboxTutor.php
-
 <?php
+// Fichero: includes/elementos/checkboxTutor.php
 // AÑADIDO: Forzar la carga del padre Checkbox
 require_once 'checkbox.php'; 
 
